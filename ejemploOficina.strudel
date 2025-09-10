@@ -1,0 +1,56 @@
+samples(
+  { 
+    aaa:['epurapluck.wav'],
+    dreamy:['simple-dreamy-vibes-1.wav'],
+    uzi: ['lil-uzi-very-type-synth-lead.wav'],
+    closer: ['closer.wav'],
+    uia: ['here-to-move-vocal-chop.wav'],
+    sad: ['sad-vocal-melody-2.wav']
+  
+  },
+  'https://raw.githubusercontent.com/valentinarau/samples/main/'
+)
+
+_ejemploChill: stack(
+// Percusión base
+  s("bd ~ sd <~ [bd bd]>, hh*4")
+
+// Funciones para jugar un poco  
+  // .rarely(x=>x.rev()).gain(0.5)
+  //.off(1/48, x=>x.room(.5))
+  //.lpf(slider(2000, 100, 2000, 1))
+  ,
+
+// Agrego una melodia
+// Alt 1
+  // s("uzi").loopAt(16),
+// Alt 2
+  // s("dreamy").loopAt(8),
+// Alt 3  
+  // n("0 2 4 6 ~ 7 9 5").scale("B:minor").rev().pan("<0 .5 1 .5>")
+  // .lpf(slider(594, 100, 2000, 1)),
+)
+
+_ejemploPunchi: stack(
+// Percusión base
+  s("jazz*4, <~ hh>*4"),
+
+// Agrego un bajo
+//  note("c2 eb2(3,8)").s('gm_synth_bass_2').cutoff(800),
+
+// Agrego un colchon
+//  s("[<gm_fx_echoes ~>, gm_fx_echoes:2]"),
+
+// Sonido random
+//  s("wind").off(1/24,x=>x.add(6)).decay("<0.1 0.3>"),
+
+// Una melodia
+//  note("[48 67 63 [62, 58]]")
+//  .every(3,x=>x.rev())
+//  .every(2,x=>x.mask(0))
+//  .cutoff(800)
+//  .sound("folkharp, gm_electric_guitar_muted") //kawai
+
+  // .gain("<0.1 0.5>") Subir o bajar volumen
+  // .pan("<.5 1 .5 0>") Cambiar de donde "escuchamos" el sonido (izquierda, derecha, etc)
+)

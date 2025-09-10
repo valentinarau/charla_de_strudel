@@ -1,0 +1,47 @@
+// Cargar el kit con otro kick
+
+samples({
+  kick:  ['bd/BT0A0D3.wav'],        // nuevo bombo
+  snare: ['sd/rytm-01-classic.wav'],
+  hat:   ['hh/000_hh3closedhh.wav']
+}, 'https://raw.githubusercontent.com/tidalcycles/Dirt-Samples/master/')
+
+
+let arpPiano = [
+  "{g3 b3 d4 f#4}%8",
+  "{a3 d4 e4 g4}%8",
+]
+
+setcpm(180/4)
+
+// Base Drum and Bass simple
+stack(
+  s(`kick ~ snare ~ ~ kick snare ~, hat*8`).gain(0.8),
+  note("<d5  a4  b4  g4>")
+  .sound("sine")       // timbre muy suave
+  .gain(0.14)      // volumen más alto
+  .attack(0.05)    // entra rápido pero sin clic
+  .release(0.9)    // cola moderada
+  .cutoff(1600)    // un poco de brillo
+  .superimpose(add(.03)), // ligera desafinacion tipo chorus
+  //note("<[c4, e4, g4, b4, f#4]> <[g3, b4, d4, a4]>"),
+  note("<[c3,eb3,g3] [f3,a3,c4]>").room(.5)
+  .sound("gm_epiano1:11")                // timbre cálido, sin asperezas
+  .gain(0.3)                   // volumen audible
+  .attack(0.1)                  // entrada suave
+  .release(2.0)                 // cola que se funde
+  .cutoff(perlin.range(700,1200)) // filtro se mueve despacio
+  .slow(2)
+  .superimpose(add(.04)),        // ligero chorus (segunda voz)
+  // s("< ~ ~ ~ ~ ~ ~ ~ ~ aaa>").gain(0.3),
+  note(pick(arpPiano, "<0 1>".slow(2)))
+  .sound("gm_epiano2:8")
+  .gain(0.24)
+  .attack(0.08)
+  .release(1.8)
+  .room(0.6)
+  .cutoff(perlin.range(900, 1300))
+  .superimpose(add(0.04))
+)
+
+// agregar arrange para que arrance el arpegiator y el kick

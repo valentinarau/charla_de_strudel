@@ -1,0 +1,42 @@
+setcpm(180/4)
+
+const arpeggiator = [
+  "{d4 bb3 eb3 d3 bb2 eb2}%8",
+  "{c4 bb3 f3 c3 bb2 f2}%8",
+  "{d4 bb3 g3 d3 bb2 g2}%8",
+  "{c4 bb3 f3 c3 bb2 f2}%8",
+]
+
+const gainnn = [
+  "2",
+  "{0.75 1}*4",
+  "{0.75 2.5!9 0.75 2.5!5 0.75 2.5 0.75 2.5!7 0.75 2.5!3 <2.5 0.75> 2.5}%16",
+]
+
+stack(
+  // base
+  s(`bd ~ sd ~ ~ bd sd ~, hh*8`).gain(0.9),
+
+  // open hat en contratiempos (sutil)
+  s("oh ~ ~ ~ oh ~ ~ ~").fast(2).gain(0.3),
+
+  // shaker sincopado para mover el groove
+  s("sh ~ sh sh ~ sh ~ sh").fast(2).gain(0.2).pan("[0.2 0.8]*4"),
+
+  // // clap “pegado” a la snare (muy bajo para sumar cuerpo)
+  // s("cp - - - - - cp -").fast(2).gain(0.28),
+
+  // ride aireado para textura
+  s("rd ~ rd ~ rd ~ rd ~").slow(2).gain(0.45),
+
+  // crash muy ocasional (cada 2 compases)
+  s("cr ~ ~ ~ ~ ~ ~ ~").slow(4).gain(0.36),
+
+  note(pick(arpeggiator, "<0 1 2 3>".slow(2)))//.rev(0.05)
+   .sound("supersaw")
+   .lpf(300)
+   .sustain(0.5).release(0.01).attack(0)
+   .room(0.6)
+   .lpenv(slider(6,1.25,6))
+   .postgain(pick(gainnn, 1))
+  )
